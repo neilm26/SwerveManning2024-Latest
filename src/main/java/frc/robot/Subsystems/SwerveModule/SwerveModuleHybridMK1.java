@@ -23,7 +23,7 @@ public class SwerveModuleHybridMK1 extends SwerveModuleBase {
     private TalonSRXConfiguration turnConfiguration = new TalonSRXConfiguration();
 
     //should have an interface for motor types as well.
-    private CANSparkBase driveMotor;
+    private CANSparkMax driveMotor;
     private TalonSRX turnMotor;
     private AnalogEncoder analogEncoder;
 

@@ -29,13 +29,14 @@ public class AutoTrajectory extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
     this.drivetrain = drivetrain;
 
-    trajectory = PathPlannerPath.fromPathFile("StraightPath")
-        .getTrajectory(new ChassisSpeeds(0, 0, 0), 
-        Rotation2d.fromRadians(0));
+    // PathPlannerPath tmp = PathPlannerPath.fromPathFile("StraightPath");
+    // trajectory = tmp.getTrajectory(
+    //   new ChassisSpeeds(0, 0, 0), 
+    //     Rotation2d.fromRadians(0));
 
-    Transform2d offset = trajectory.getInitialTargetHolonomicPose().minus(drivetrain.getOdometry().getPoseMeters());
+    // Transform2d offset = trajectory.getInitialTargetHolonomicPose().minus(drivetrain.getOdometry().getPoseMeters());
 
-    trajectory.getInitialTargetHolonomicPose().transformBy(offset);
+    // trajectory.getInitialTargetHolonomicPose().transformBy(offset);
 
     addRequirements(drivetrain);
   }
@@ -56,35 +57,36 @@ public class AutoTrajectory extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    PathPlannerTrajectory.State state = (PathPlannerTrajectory.State) trajectory.sample(timer.get());
+    // PathPlannerTrajectory.State state = (PathPlannerTrajectory.State) trajectory.sample(timer.get());
     
-    drivetrain.updateSkew(false);
-    ChassisSpeeds chassisSpeeds = SwerveConstants.SWERVE_PID_CONTROLLER.calculate(
-      drivetrain.getOdometry().getPoseMeters(),  
-      state.getTargetHolonomicPose(), 
-      state.velocityMps, 
-      state.targetHolonomicRotation);   
+    // drivetrain.updateSkew(false);
+    // ChassisSpeeds chassisSpeeds = SwerveConstants.SWERVE_PID_CONTROLLER.calculate(
+    //   drivetrain.getOdometry().getPoseMeters(),  
+    //   state.getTargetHolonomicPose(), 
+    //   state.velocityMps, 
+    //   state.targetHolonomicRotation);   
 
-    SmartDashboard.putNumber("turnspeed", chassisSpeeds.omegaRadiansPerSecond);
-    SmartDashboard.putNumber("target holo heading:", state.targetHolonomicRotation.getDegrees());
-    SmartDashboard.putNumber("drivetrain heading: ", drivetrain.getPigeonRotation2dEM().getDegrees());
+    // SmartDashboard.putNumber("turnspeed", chassisSpeeds.omegaRadiansPerSecond);
+    // SmartDashboard.putNumber("target holo heading:", state.targetHolonomicRotation.getDegrees());
+    // SmartDashboard.putNumber("drivetrain heading: ", drivetrain.getPigeonRotation2dEM().getDegrees());
 
-    drivetrain.setCentralMotion(chassisSpeeds, null);
+    // drivetrain.setCentralMotion(chassisSpeeds, null);
 
-    hasReachedEndOfTrajectory = state.equals(trajectory.getEndState());
+    // hasReachedEndOfTrajectory = state.equals(trajectory.getEndState());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     drivetrain.updateSkew(false);
-    drivetrain.reface(drivetrain.getPigeonRotation2dEM().getDegrees(), trajectory.getEndState().targetHolonomicRotation.getDegrees());
+    //drivetrain.reface(drivetrain.getPigeonRotation2dEM().getDegrees(), trajectory.getEndState().targetHolonomicRotation.getDegrees());
     timer.stop();
   }
 
   // Returns true when the command should end.
   @Override 
   public boolean isFinished() {
-    return timer.get()-trajectory.getTotalTimeSeconds()>=.25 && hasReachedEndOfTrajectory;
+    return false;
+    //return timer.get()-trajectory.getTotalTimeSeconds()>=.25 && hasReachedEndOfTrajectory;
   }
 }

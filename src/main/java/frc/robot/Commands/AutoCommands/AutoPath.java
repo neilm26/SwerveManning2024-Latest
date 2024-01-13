@@ -16,9 +16,9 @@ import frc.robot.Subsystems.Drivetrains.SwerveDrivetrain;
 public class AutoPath {
   /** Creates a new AutoPath. */
   private SwerveDrivetrain drivetrain;
-  private PathPlannerTrajectory trajectory = PathPlannerPath.fromPathFile("StraightPath").
-        getTrajectory(new ChassisSpeeds(0, 0, 0), 
-        Rotation2d.fromRadians(0));
+  // private PathPlannerTrajectory trajectory = PathPlannerPath.fromPathFile("StraightPath").
+  //       getTrajectory(new ChassisSpeeds(0, 0, 0), 
+  //       Rotation2d.fromRadians(0));
   
   public SwerveControllerCommand autoCommand;
 

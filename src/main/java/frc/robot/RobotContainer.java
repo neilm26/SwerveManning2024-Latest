@@ -66,9 +66,9 @@ public class RobotContainer {
 
 
   public void setUpPathOptions() {
-    autoPathChooser.addOption("TestTurn", autoPath.autoCommand.andThen(
-      () -> drivetrain.setCentralMotion(new ChassisSpeeds(0, 0, 
-      0), null)).alongWith(new InstantCommand(() ->drivetrain.updateSkew(false))));
+    // autoPathChooser.addOption("TestTurn", autoPath.autoCommand.andThen(
+    //   () -> drivetrain.setCentralMotion(new ChassisSpeeds(0, 0, 
+    //   0), null)).alongWith(new InstantCommand(() ->drivetrain.updateSkew(false))));
 
     autoPathChooser.setDefaultOption("Auto Drive Timed", autoForward);
 
